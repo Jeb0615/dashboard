@@ -4,4 +4,4 @@ from rrd import app
 
 @app.route("/")
 def index():
-    return render_template("index.html", **locals())
+    return render_template("public/index.html", **locals())

@@ -27,10 +27,22 @@ class EndpointCounter(object):
         args += [start, limit]
 
         sql = '''select id, endpoint_id, counter, step, type from endpoint_counter where endpoint_id in (''' +placeholder+ ''') '''
-        for q in qs:
-            sql += ''' and counter like %s'''
+        
+	i = 0
+	size = len(qs)
+	
+	if size > 0:
+	    sql += ''' and ('''
+	    for q in qs:
+	        if i+1 != size:
+                    sql += ''' counter like %s or '''
+	        else:
+	            sql += ''' counter like %s '''
+		i += 1
+	    sql += ''')'''
         sql += ''' limit %s,%s'''
 
+	print ('search_in_endpoint_ids sql===>>>%s'%sql)
         cursor = db_conn.execute(sql, args)
         rows = cursor.fetchall()
         cursor and cursor.close()

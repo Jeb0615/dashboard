@@ -11,4 +11,4 @@ def all_exception_handler(error):
     print "exception: %s" %error
     return u'dashboard 暂时无法访问，请联系管理员', 500
 
-from view import api, chart, screen, index
+from view import api, chart, screen, index, dashboard, detail
